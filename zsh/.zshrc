@@ -5,27 +5,54 @@
 # history
 HISTFILE=~/.zsh_history
 
-# source
-plug "$HOME/.config/zsh/aliases.zsh"
-plug "$HOME/.config/zsh/exports.zsh"
 
-# plugins
-plug "esc/conda-zsh-completion"
-plug "zsh-users/zsh-autosuggestions"
-plug "hlissner/zsh-autopair"
-plug "zap-zsh/supercharge"
-plug "zap-zsh/vim"
-plug "zap-zsh/zap-prompt"
-plug "zap-zsh/fzf"
-plug "zap-zsh/exa"
-plug "zsh-users/zsh-syntax-highlighting"
+# ------------------------------------------------------------------------------------------------
+# ------------------------------------zplug-------------------------------------------------------
+# ------------------------------------------------------------------------------------------------
 
-# keybinds
-bindkey '^ ' autosuggest-accept
+if [[ ! -d "${ZPLUG_HOME}" ]]; then
+  if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
 
-export PATH="$HOME/.local/bin":$PATH
-
-if command -v bat &> /dev/null; then
-  alias cat="bat -pp --theme \"Visual Studio Dark+\"" 
-  alias catt="bat --theme \"Visual Studio Dark+\"" 
+    # If we can't get zplug, it'll be a very sobering shell experience. To at
+    # least complete the sourcing of this file, we'll define an always-false
+    # returning zplug function.
+    if [[ $? != 0 ]]; then
+      function zplug() {
+        return 1
+      }
+    fi
+  fi
+  export ZPLUG_HOME=~/.zplug
 fi
+if [[ -d "${ZPLUG_HOME}" ]]; then
+  source "${ZPLUG_HOME}/init.zsh"
+fi
+
+zplug "$HOME/.config/zsh/aliases.zsh"
+zplug "$HOME/.config/zsh/exports.zsh"
+
+zplug 'plugins/git', from:oh-my-zsh, if:'which git'
+zplug 'romkatv/powerlevel10k', use:powerlevel10k.zsh-theme
+zplug "plugins/vi-mode", from:oh-my-zsh
+zplug 'zsh-users/zsh-autosuggestions'
+zplug 'zsh-users/zsh-completions', defer:2
+zplug 'zsh-users/zsh-history-substring-search'
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2
+
+zplug "hlissner/zsh-autopair"
+zplug "zap-zsh/supercharge"
+zplug "zap-zsh/vim"
+zplug "zap-zsh/zap-prompt"
+zplug "zap-zsh/fzf"
+zplug "zap-zsh/exa"
+
+if ! zplug check; then
+  zplug install
+fi
+
+zplug load
+
+
+
+
