@@ -146,35 +146,19 @@ esac
 # --------------------------------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------export----------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------------------------------------------
-# echo 'export PATH="~/go/bin:$PATH"' >> ~/.zshrc
-# echo 'export GOROOT="~/go"' >> ~/.zshrc
-# echo 'export PATH=$PATH:$GOROOT/bin' >> ~/.zshrc
-case "$(uname -s)" in
-  Darwin)
-    # echo 'Mac OS X'
-    export GOROOT=/usr/local/go
-    export PATH=$PATH:$GOROOT/bin
-    go env -w GO111MODULE=on
-    go env -w GOPROXY=https://goproxy.cn,direct
 
-    export PATH="$PATH:/Users/nilei/.foundry/bin"
-    export PATH="$PATH:/Users/nilei/.huff/bin"
-    export PATH="$PATH:/Users/nilei/.foundry/bin"
-    export PATH="$PATH:/Users/nilei/nvim/bin"
-    ;;
+# go
+export GOROOT=~/go
+export PATH=$PATH:$GOROOT/bin
 
-  Linux)
-    # go
-    export PATH=$PATH:$HOME/go/bin
-    export GOROOT=$PATH:$HOME/go
-    export PATH=$PATH:$GOROOT/bin
-    # rust
-    export PATH=$PATH:$HOME/.cargo/bin
-    # nvim
-    export PATH=$PATH:$HOME/nvim/nvim-linux64/bin
-    ;;
+## geth
+# export PATH=$PATH:/datadrive/go-ethereum/build/bin
 
-  *)
-    # echo 'Other OS'
-    ;;
-esac
+## lighthouse
+#
+
+# rust
+export PATH=$PATH:$HOME/.cargo/bin
+# nvim
+export PATH=$PATH:$HOME/nvim/nvim-linux64/bin
+
