@@ -70,6 +70,7 @@ alias g='lazygit'
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 alias nvimrc='nvim ~/.config/nvim/'
 alias yay="paru"
+alias tree="tree -L 1"
 
 # alias lvim='nvim -u ~/.local/share/lunarvim/lvim/init.lua --cmd "set runtimepath+=~/.local/share/lunarvim/lvim"'
 
@@ -125,24 +126,55 @@ if [[ $TERM == "xterm-kitty" ]]; then
 fi
 
 case "$(uname -s)" in
+  Darwin)
+    # echo 'Mac OS X'
+    alias ls='ls -G'
+    ;;
 
-Darwin)
-	# echo 'Mac OS X'
-	alias ls='ls -G'
-	;;
+  Linux)
+    alias ls='ls --color=auto'
+    ;;
 
-Linux)
-	alias ls='ls --color=auto'
-	;;
-
-CYGWIN* | MINGW32* | MSYS* | MINGW*)
-	# echo 'MS Windows'
-	;;
-*)
-	# echo 'Other OS'
-	;;
+  CYGWIN* | MINGW32* | MSYS* | MINGW*)
+    # echo 'MS Windows'
+    ;;
+  *)
+    # echo 'Other OS'
+    ;;
 esac
 
 # --------------------------------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------export----------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------------------------------------------
+# echo 'export PATH="~/go/bin:$PATH"' >> ~/.zshrc
+# echo 'export GOROOT="~/go"' >> ~/.zshrc
+# echo 'export PATH=$PATH:$GOROOT/bin' >> ~/.zshrc
+case "$(uname -s)" in
+  Darwin)
+    # echo 'Mac OS X'
+    export GOROOT=/usr/local/go
+    export PATH=$PATH:$GOROOT/bin
+    go env -w GO111MODULE=on
+    go env -w GOPROXY=https://goproxy.cn,direct
+
+    export PATH="$PATH:/Users/nilei/.foundry/bin"
+    export PATH="$PATH:/Users/nilei/.huff/bin"
+    export PATH="$PATH:/Users/nilei/.foundry/bin"
+    export PATH="$PATH:/Users/nilei/nvim/bin"
+    ;;
+
+  Linux)
+    # go
+    export PATH=$PATH:$HOME/go/bin
+    export GOROOT=$PATH:$HOME/go
+    export PATH=$PATH:$GOROOT/bin
+    # rust
+    export PATH=$PATH:$HOME/.cargo/bin
+    # nvim
+    export PATH=$PATH:$HOME/nvim/nvim-linux64/bin
+    ;;
+
+  *)
+    # echo 'Other OS'
+    ;;
+esac
