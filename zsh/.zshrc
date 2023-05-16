@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #!/bin/sh
 [ -f "$HOME/.local/share/zap/zap.zsh" ] && source "$HOME/.local/share/zap/zap.zsh"
 
@@ -120,6 +127,8 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 
 alias m="git checkout master"
 alias s="git checkout stable"
+alias td="tmux detach"
+alias ta="tmux attach"
 
 if [[ $TERM == "xterm-kitty" ]]; then
   alias ssh="kitty +kitten ssh"
@@ -150,9 +159,10 @@ esac
 # go
 export GOROOT=~/go
 export PATH=$PATH:$GOROOT/bin
+go env -w GO111MODULE=on
 
 ## geth
-# export PATH=$PATH:/datadrive/go-ethereum/build/bin
+export PATH=$PATH:/deep/erigon/build/bin
 
 ## lighthouse
 #
@@ -160,5 +170,7 @@ export PATH=$PATH:$GOROOT/bin
 # rust
 export PATH=$PATH:$HOME/.cargo/bin
 # nvim
-export PATH=$PATH:$HOME/nvim/nvim-linux64/bin
+export PATH=$PATH:$HOME/nvim-linux64/bin
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
