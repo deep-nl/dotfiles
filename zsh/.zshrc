@@ -127,6 +127,8 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 
 alias m="git checkout master"
 alias s="git checkout stable"
+
+alias tas='tmux attach-session -t'
 alias td="tmux detach"
 alias ta="tmux attach"
 
@@ -153,6 +155,32 @@ case "$(uname -s)" in
 esac
 
 # --------------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------FUNCTIONS--------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Rpc method
+
+rpc-gasprice() {
+    curl http://localhost:8545 \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d '{"jsonrpc":"2.0","method":"eth_gasPrice","params": [],"id":1}'
+}
+
+rpc-sync() {
+    curl http://localhost:8545 \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d '{"jsonrpc":"2.0","method":"eth_syncing","params": [],"id":1}'
+}
+
+rpc-blocknumber(){
+    curl http://localhost:8545 \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params": [],"id":1}'
+}
+
+# --------------------------------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------export----------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------------------------------------------
 
@@ -170,7 +198,7 @@ export PATH=$PATH:/deep/erigon/build/bin
 # rust
 export PATH=$PATH:$HOME/.cargo/bin
 # nvim
-export PATH=$PATH:$HOME/nvim-linux64/bin
+export PATH=$PATH:$HOME/nvim/nvim-linux64/bin
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
