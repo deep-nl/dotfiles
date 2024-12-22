@@ -16,7 +16,7 @@ if [ ! -f "$HOME/.cargo/env" ]; then
 	# Check the exit status of the previous command
 	if [ $? -eq 0 ]; then
 		 echo "Rust installed successfully."
-                 echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.zshrC
+                 echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.zshrc
 	 else
 		 echo "Rust installation failed."
 	fi
