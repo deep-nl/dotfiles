@@ -7,6 +7,7 @@ mkdir -p ~/nvim
 tar xzvf nvim-linux64.tar.gz -C ~/nvim 
 rm -rf nvim-linux64.tar.gz
 echo 'export PATH=$PATH:$HOME/nvim/nvim-linux64/bin' >> ~/.zshrc
+source .zshrc
 echo "nvim installed!"
 
 # Linux / Macos (unix)
